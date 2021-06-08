@@ -63,7 +63,7 @@ namespace TaptCharter
                 ""
             };
 
-            string filePath = Path.Combine(_filePath, "file.taptchart");
+            string filePath = Path.Combine(_filePath, "chart.taptchart");
 
             using (StreamWriter outputFile = new StreamWriter(filePath))
             {

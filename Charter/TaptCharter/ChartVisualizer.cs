@@ -11,33 +11,36 @@ using System.ComponentModel;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Media;
 
 namespace TaptCharter
 {
     class ChartVisualizer : MonoGame.Forms.Controls.MonoGameControl
     {
-        int bpm;
-        int length;
-        string name;
-        string artist;
-        string album;
-        string filePath;
-        string charter;
+        private static int bpm;
+        private static int length;
+        private static string name;
+        private static string artist;
+        private static string album;
+        private static string filePath;
+        private static string charter;
+        private static bool songPlaying;
 
-        SoundEffect loadedSong;
+        private static SoundEffect loadedSong;
 
-        string[] fileData; // This is where the initial data is read to. 
-        string[] songInfo; // If there is a chart in the file, the initial information (name, artist, etc) is chopped off and put into another array.
-        string[] chartData; // This is where the rest of the fileData, the usable information, is stored. 
+        private static string[] fileData; // This is where the initial data is read to. 
+        private static string[] songInfo; // If there is a chart in the file, the initial information (name, artist, etc) is chopped off and put into another array.
+        private static string[] chartData; // This is where the rest of the fileData, the usable information, is stored. 
 
-        KeyboardState previousState;
+        private KeyboardState previousState;
 
         //CharterForm charterForm;
 
         
         public ChartVisualizer()
         {
-            
+            filePath = "";
+            songPlaying = false;
         }
         
 
@@ -55,9 +58,26 @@ namespace TaptCharter
         {
             KeyboardState keyboardState = Keyboard.GetState();
 
-            if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space))
+            if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space) && !songPlaying)
             {
-                loadedSong.Play();
+                try
+                {
+                    songPlaying = true;
+                    loadedSong.CreateInstance();
+                    loadedSong.Play();
+                    
+                } catch (Exception ex)
+                {
+                    Console.WriteLine("Attempted to load file at " + filePath + @"\song.wav");
+                    Console.WriteLine("Error: " + ex.ToString());
+                }
+            } else if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space) && songPlaying)
+            {
+                songPlaying = false;
+                loadedSong.Dispose(); // This works and stops the song from playing the first time.
+                // However it doesn't work after the first time. It just keeps starting new instances of the song.
+                // Why does this happen??? 
+                // Life is hell. 
             }
 
 
@@ -67,9 +87,10 @@ namespace TaptCharter
         }
 
 
-        public void Load(string filePath)
+        public void Load(string _filePath)
         {
-            string chartFilePath = filePath + @"/chart.taptchart";
+            filePath = _filePath;
+            string chartFilePath = filePath + @"\chart.taptchart";
             try
             {
                 fileData = File.ReadAllLines(chartFilePath);
@@ -87,8 +108,21 @@ namespace TaptCharter
             artist = fileData[4];
             album = fileData[5];
             charter = fileData[6];
+            try
+            {
+                //loadedSong = SoundEffect.FromStream(new System.IO.FileStream(filePath + @"\song.wav", System.IO.FileMode.Open));
+                //Console.WriteLine("Loaded sound at " + filePath + @"\song.wav");
 
-            loadedSong = SoundEffect.FromStream(new System.IO.FileStream(filePath + "/song.wav", System.IO.FileMode.Open));
+                System.IO.FileStream fs = new System.IO.FileStream(filePath + @"\song.wav", System.IO.FileMode.Open);
+                loadedSong = SoundEffect.FromStream(fs);
+                Console.WriteLine("Loaded sound at " + filePath + @"\song.wav");
+                fs.Dispose();
+                
+            } catch (Exception ex)
+            {
+                Console.WriteLine("Error loading wav file: " + ex.ToString());
+                return;
+            }
 
             if (fileData.Length > 9)
             {
