@@ -13,6 +13,7 @@ namespace TaptCharter
 {
     public partial class CharterForm : Form
     {
+        string version = "v0.1";
         public CharterForm()
         {
             InitializeComponent();
@@ -20,7 +21,7 @@ namespace TaptCharter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.Text = "TaptCharter " + version;
         }
 
         private void newChartToolStripMenuItem_Click(object sender, EventArgs e)
@@ -33,15 +34,18 @@ namespace TaptCharter
         {
 
         }
-        public void Create(int _bpm, string _name, string _filePath, string _artist = " ", string _album = " ", string _charter = " ")
+        public void Create(string _bpm, string _length, string _name, string _artist, string _album, string _charter, string _filePath)
         {
             string[] basicInfo =
             {
-                _bpm.ToString(),
+                _bpm,
+                _length,
+                "",
                 _name,
                 _artist,
                 _album,
-                _charter
+                _charter,
+                ""
             };
 
             string filePath = Path.Combine(_filePath, _name + ".taptchart");
@@ -55,7 +59,13 @@ namespace TaptCharter
             }
 
             chartVisualizer.Load(filePath);
-            this.Text = "Tapt Charter: " + _name;
+            this.Text = "Tapt Charter" + version + ": " + _name;
+            saveChartToolStripMenuItem.Enabled = true;
+        }
+
+        private void openChartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

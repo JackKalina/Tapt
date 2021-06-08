@@ -28,24 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chartVisualizer = new TaptCharter.ChartVisualizer();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chartVisualizer = new TaptCharter.ChartVisualizer();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // chartVisualizer
-            // 
-            this.chartVisualizer.Location = new System.Drawing.Point(12, 31);
-            this.chartVisualizer.MouseHoverUpdatesOnly = false;
-            this.chartVisualizer.Name = "chartVisualizer";
-            this.chartVisualizer.Size = new System.Drawing.Size(966, 676);
-            this.chartVisualizer.TabIndex = 1;
-            this.chartVisualizer.Text = "chartVisualizer";
-            this.chartVisualizer.Click += new System.EventHandler(this.chartVisualizer_Click);
             // 
             // menuStrip1
             // 
@@ -80,12 +70,24 @@
             this.openChartToolStripMenuItem.Name = "openChartToolStripMenuItem";
             this.openChartToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openChartToolStripMenuItem.Text = "Open Chart";
+            this.openChartToolStripMenuItem.Click += new System.EventHandler(this.openChartToolStripMenuItem_Click);
             // 
             // saveChartToolStripMenuItem
             // 
+            this.saveChartToolStripMenuItem.Enabled = false;
             this.saveChartToolStripMenuItem.Name = "saveChartToolStripMenuItem";
             this.saveChartToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveChartToolStripMenuItem.Text = "Save Chart";
+            // 
+            // chartVisualizer
+            // 
+            this.chartVisualizer.Location = new System.Drawing.Point(12, 31);
+            this.chartVisualizer.MouseHoverUpdatesOnly = false;
+            this.chartVisualizer.Name = "chartVisualizer";
+            this.chartVisualizer.Size = new System.Drawing.Size(966, 676);
+            this.chartVisualizer.TabIndex = 1;
+            this.chartVisualizer.Text = "chartVisualizer";
+            this.chartVisualizer.Click += new System.EventHandler(this.chartVisualizer_Click);
             // 
             // CharterForm
             // 

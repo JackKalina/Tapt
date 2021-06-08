@@ -44,11 +44,13 @@
             this.mp3FileNameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.charterInput = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lengthInput = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // bpmInput
             // 
-            this.bpmInput.Location = new System.Drawing.Point(78, 177);
+            this.bpmInput.Location = new System.Drawing.Point(95, 177);
             this.bpmInput.Name = "bpmInput";
             this.bpmInput.Size = new System.Drawing.Size(166, 22);
             this.bpmInput.TabIndex = 0;
@@ -58,29 +60,29 @@
             this.bpmLabel.AutoSize = true;
             this.bpmLabel.Location = new System.Drawing.Point(12, 177);
             this.bpmLabel.Name = "bpmLabel";
-            this.bpmLabel.Size = new System.Drawing.Size(50, 17);
+            this.bpmLabel.Size = new System.Drawing.Size(41, 17);
             this.bpmLabel.TabIndex = 1;
-            this.bpmLabel.Text = "BPM: *";
+            this.bpmLabel.Text = "BPM:";
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
             this.nameLabel.Location = new System.Drawing.Point(9, 54);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(58, 17);
+            this.nameLabel.Size = new System.Drawing.Size(49, 17);
             this.nameLabel.TabIndex = 2;
-            this.nameLabel.Text = "Name: *";
+            this.nameLabel.Text = "Name:";
             // 
             // nameInput
             // 
-            this.nameInput.Location = new System.Drawing.Point(78, 49);
+            this.nameInput.Location = new System.Drawing.Point(95, 49);
             this.nameInput.Name = "nameInput";
             this.nameInput.Size = new System.Drawing.Size(166, 22);
             this.nameInput.TabIndex = 3;
             // 
             // artistInput
             // 
-            this.artistInput.Location = new System.Drawing.Point(78, 81);
+            this.artistInput.Location = new System.Drawing.Point(95, 81);
             this.artistInput.Name = "artistInput";
             this.artistInput.Size = new System.Drawing.Size(166, 22);
             this.artistInput.TabIndex = 5;
@@ -115,7 +117,7 @@
             // 
             // albumInput
             // 
-            this.albumInput.Location = new System.Drawing.Point(78, 113);
+            this.albumInput.Location = new System.Drawing.Point(95, 113);
             this.albumInput.Name = "albumInput";
             this.albumInput.Size = new System.Drawing.Size(166, 22);
             this.albumInput.TabIndex = 8;
@@ -128,7 +130,7 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(131, 263);
+            this.okButton.Location = new System.Drawing.Point(148, 292);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(113, 23);
             this.okButton.TabIndex = 11;
@@ -138,7 +140,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(12, 263);
+            this.cancelButton.Location = new System.Drawing.Point(12, 291);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(112, 23);
             this.cancelButton.TabIndex = 12;
@@ -148,9 +150,9 @@
             // 
             // openFileButton
             // 
-            this.openFileButton.Location = new System.Drawing.Point(13, 205);
+            this.openFileButton.Location = new System.Drawing.Point(13, 233);
             this.openFileButton.Name = "openFileButton";
-            this.openFileButton.Size = new System.Drawing.Size(231, 23);
+            this.openFileButton.Size = new System.Drawing.Size(248, 23);
             this.openFileButton.TabIndex = 13;
             this.openFileButton.Text = "Open mp3 file...";
             this.openFileButton.UseVisualStyleBackColor = true;
@@ -158,10 +160,10 @@
             // 
             // mp3FileNameTextBox
             // 
-            this.mp3FileNameTextBox.Location = new System.Drawing.Point(13, 235);
+            this.mp3FileNameTextBox.Location = new System.Drawing.Point(13, 263);
             this.mp3FileNameTextBox.Name = "mp3FileNameTextBox";
             this.mp3FileNameTextBox.ReadOnly = true;
-            this.mp3FileNameTextBox.Size = new System.Drawing.Size(231, 22);
+            this.mp3FileNameTextBox.Size = new System.Drawing.Size(248, 22);
             this.mp3FileNameTextBox.TabIndex = 14;
             // 
             // label1
@@ -175,16 +177,34 @@
             // 
             // charterInput
             // 
-            this.charterInput.Location = new System.Drawing.Point(78, 146);
+            this.charterInput.Location = new System.Drawing.Point(95, 146);
             this.charterInput.Name = "charterInput";
             this.charterInput.Size = new System.Drawing.Size(166, 22);
             this.charterInput.TabIndex = 15;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 205);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 17);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Length (s):";
+            // 
+            // lengthInput
+            // 
+            this.lengthInput.Location = new System.Drawing.Point(95, 205);
+            this.lengthInput.Name = "lengthInput";
+            this.lengthInput.Size = new System.Drawing.Size(166, 22);
+            this.lengthInput.TabIndex = 17;
             // 
             // NewChartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(256, 299);
+            this.ClientSize = new System.Drawing.Size(273, 327);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lengthInput);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.charterInput);
             this.Controls.Add(this.mp3FileNameTextBox);
@@ -226,5 +246,7 @@
         private System.Windows.Forms.TextBox mp3FileNameTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox charterInput;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox lengthInput;
     }
 }

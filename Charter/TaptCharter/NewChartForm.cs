@@ -62,7 +62,7 @@ namespace TaptCharter
                         Directory.CreateDirectory(path + @"\songs\" + nameInput.Text);
                         string currentPath = path + @"\songs\" + nameInput.Text;
                         File.Copy(mp3FileNameTextBox.Text, currentPath + @"\song.mp3");
-                        charterForm.Create(Int32.Parse(bpmInput.Text), nameInput.Text, currentPath, artistInput.Text, albumInput.Text, charterInput.Text);
+                        charterForm.Create(bpmInput.Text, lengthInput.Text, nameInput.Text, artistInput.Text, albumInput.Text, charterInput.Text, currentPath);
                         this.Close();
                     } // If there is, pop up an error and tell the user what to do. 
                     else
