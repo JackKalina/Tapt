@@ -50,12 +50,6 @@ namespace TaptCharter
                 {
                     string path = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 
-                    // if there is no songs folder, make one
-                    if (!Directory.Exists(path + @"\songs"))
-                    {
-                        Directory.CreateDirectory(path + @"\songs");
-                        Console.WriteLine("Created songs directory at " + path + @"\songs");
-                    }
                     // If there isn't a folder by the same name, make it
                     if (!Directory.Exists(path + @"\songs\" + nameInput.Text))
                     {

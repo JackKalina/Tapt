@@ -13,7 +13,16 @@ namespace TaptCharter
 {
     public partial class CharterForm : Form
     {
+
         string version = "v0.1";
+        public string Version
+        {
+            get
+            {
+                return version;
+            }
+        }
+
         public CharterForm()
         {
             InitializeComponent();
@@ -22,6 +31,12 @@ namespace TaptCharter
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Text = "TaptCharter " + version;
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\songs\"))
+            {
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\songs");
+                Console.WriteLine("Created songs directory at " + Directory.GetCurrentDirectory() + @"\songs");
+            }
+            openChartDialog.SelectedPath = Directory.GetCurrentDirectory() + @"\songs\";
         }
 
         private void newChartToolStripMenuItem_Click(object sender, EventArgs e)
@@ -48,7 +63,7 @@ namespace TaptCharter
                 ""
             };
 
-            string filePath = Path.Combine(_filePath, _name + ".taptchart");
+            string filePath = Path.Combine(_filePath, "file.taptchart");
 
             using (StreamWriter outputFile = new StreamWriter(filePath))
             {
@@ -65,7 +80,16 @@ namespace TaptCharter
 
         private void openChartToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            if (openChartDialog.ShowDialog() == DialogResult.OK)
+            {
+                chartVisualizer.Load(openChartDialog.SelectedPath);
+                saveChartToolStripMenuItem.Enabled = true;
+            }
+        }
+
+        private void openChartDialog_FileOk(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

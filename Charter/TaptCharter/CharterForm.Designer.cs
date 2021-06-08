@@ -33,7 +33,9 @@
             this.newChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chartVisualizer1 = new TaptCharter.ChartVisualizer();
             this.chartVisualizer = new TaptCharter.ChartVisualizer();
+            this.openChartDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,14 +63,14 @@
             // newChartToolStripMenuItem
             // 
             this.newChartToolStripMenuItem.Name = "newChartToolStripMenuItem";
-            this.newChartToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newChartToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
             this.newChartToolStripMenuItem.Text = "New Chart";
             this.newChartToolStripMenuItem.Click += new System.EventHandler(this.newChartToolStripMenuItem_Click);
             // 
             // openChartToolStripMenuItem
             // 
             this.openChartToolStripMenuItem.Name = "openChartToolStripMenuItem";
-            this.openChartToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openChartToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
             this.openChartToolStripMenuItem.Text = "Open Chart";
             this.openChartToolStripMenuItem.Click += new System.EventHandler(this.openChartToolStripMenuItem_Click);
             // 
@@ -76,24 +78,32 @@
             // 
             this.saveChartToolStripMenuItem.Enabled = false;
             this.saveChartToolStripMenuItem.Name = "saveChartToolStripMenuItem";
-            this.saveChartToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveChartToolStripMenuItem.Size = new System.Drawing.Size(167, 26);
             this.saveChartToolStripMenuItem.Text = "Save Chart";
+            // 
+            // chartVisualizer1
+            // 
+            this.chartVisualizer1.Location = new System.Drawing.Point(12, 31);
+            this.chartVisualizer1.MouseHoverUpdatesOnly = false;
+            this.chartVisualizer1.Name = "chartVisualizer1";
+            this.chartVisualizer1.Size = new System.Drawing.Size(966, 676);
+            this.chartVisualizer1.TabIndex = 6;
+            this.chartVisualizer1.Text = "chartVisualizer1";
             // 
             // chartVisualizer
             // 
-            this.chartVisualizer.Location = new System.Drawing.Point(12, 31);
+            this.chartVisualizer.Location = new System.Drawing.Point(0, 0);
             this.chartVisualizer.MouseHoverUpdatesOnly = false;
             this.chartVisualizer.Name = "chartVisualizer";
-            this.chartVisualizer.Size = new System.Drawing.Size(966, 676);
-            this.chartVisualizer.TabIndex = 1;
-            this.chartVisualizer.Text = "chartVisualizer";
-            this.chartVisualizer.Click += new System.EventHandler(this.chartVisualizer_Click);
+            this.chartVisualizer.Size = new System.Drawing.Size(0, 0);
+            this.chartVisualizer.TabIndex = 0;
             // 
             // CharterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 719);
+            this.Controls.Add(this.chartVisualizer1);
             this.Controls.Add(this.chartVisualizer);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -115,6 +125,8 @@
         private System.Windows.Forms.ToolStripMenuItem newChartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openChartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveChartToolStripMenuItem;
+        private ChartVisualizer chartVisualizer1;
+        private System.Windows.Forms.FolderBrowserDialog openChartDialog;
     }
 }
 

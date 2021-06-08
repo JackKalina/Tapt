@@ -125,12 +125,12 @@
             // openFileDialog
             // 
             this.openFileDialog.DefaultExt = "mp3";
-            this.openFileDialog.Filter = "mp3 Files (.mp3)|*.mp3";
+            this.openFileDialog.Filter = "wav Files (.wav)|*.wav";
             this.openFileDialog.Title = "Open File...";
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(148, 292);
+            this.okButton.Location = new System.Drawing.Point(148, 300);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(113, 23);
             this.okButton.TabIndex = 11;
@@ -140,7 +140,7 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(12, 291);
+            this.cancelButton.Location = new System.Drawing.Point(12, 299);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(112, 23);
             this.cancelButton.TabIndex = 12;
@@ -152,19 +152,20 @@
             // 
             this.openFileButton.Location = new System.Drawing.Point(13, 233);
             this.openFileButton.Name = "openFileButton";
-            this.openFileButton.Size = new System.Drawing.Size(248, 23);
+            this.openFileButton.Size = new System.Drawing.Size(248, 32);
             this.openFileButton.TabIndex = 13;
-            this.openFileButton.Text = "Open mp3 file...";
+            this.openFileButton.Text = "Open wav file...";
             this.openFileButton.UseVisualStyleBackColor = true;
             this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
             // 
             // mp3FileNameTextBox
             // 
-            this.mp3FileNameTextBox.Location = new System.Drawing.Point(13, 263);
+            this.mp3FileNameTextBox.Location = new System.Drawing.Point(13, 271);
             this.mp3FileNameTextBox.Name = "mp3FileNameTextBox";
             this.mp3FileNameTextBox.ReadOnly = true;
             this.mp3FileNameTextBox.Size = new System.Drawing.Size(248, 22);
             this.mp3FileNameTextBox.TabIndex = 14;
+            this.mp3FileNameTextBox.Text = "Please select a .wav file.";
             // 
             // label1
             // 
@@ -202,7 +203,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(273, 327);
+            this.ClientSize = new System.Drawing.Size(273, 335);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lengthInput);
             this.Controls.Add(this.label1);
