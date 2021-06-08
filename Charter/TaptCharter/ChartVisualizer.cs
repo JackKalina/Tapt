@@ -27,6 +27,7 @@ namespace TaptCharter
         private static bool songPlaying;
 
         private static SoundEffect loadedSong;
+        private static SoundEffectInstance songInstance;
 
         private static string[] fileData; // This is where the initial data is read to. 
         private static string[] songInfo; // If there is a chart in the file, the initial information (name, artist, etc) is chopped off and put into another array.
@@ -63,8 +64,8 @@ namespace TaptCharter
                 try
                 {
                     songPlaying = true;
-                    loadedSong.CreateInstance();
-                    loadedSong.Play();
+                    songInstance = loadedSong.CreateInstance();
+                    songInstance.Play();
                     
                 } catch (Exception ex)
                 {
@@ -74,10 +75,7 @@ namespace TaptCharter
             } else if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space) && songPlaying)
             {
                 songPlaying = false;
-                loadedSong.Dispose(); // This works and stops the song from playing the first time.
-                // However it doesn't work after the first time. It just keeps starting new instances of the song.
-                // Why does this happen??? 
-                // Life is hell. 
+                songInstance.Stop();
             }
 
 
