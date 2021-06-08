@@ -24,7 +24,6 @@ namespace TaptCharter
         private static string album;
         private static string filePath;
         private static string charter;
-        private static bool songPlaying;
 
         private static SoundEffect loadedSong;
         private static SoundEffectInstance songInstance;
@@ -35,13 +34,10 @@ namespace TaptCharter
 
         private KeyboardState previousState;
 
-        //CharterForm charterForm;
-
         
         public ChartVisualizer()
         {
             filePath = "";
-            songPlaying = false;
         }
         
 
@@ -59,11 +55,10 @@ namespace TaptCharter
         {
             KeyboardState keyboardState = Keyboard.GetState();
 
-            if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space) && !songPlaying)
+            if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space) && songInstance.State == SoundState.Stopped)
             {
                 try
                 {
-                    songPlaying = true;
                     songInstance = loadedSong.CreateInstance();
                     songInstance.Play();
                     
@@ -72,9 +67,8 @@ namespace TaptCharter
                     Console.WriteLine("Attempted to load file at " + filePath + @"\song.wav");
                     Console.WriteLine("Error: " + ex.ToString());
                 }
-            } else if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space) && songPlaying)
+            } else if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space) && songInstance.State == SoundState.Playing)
             {
-                songPlaying = false;
                 songInstance.Stop();
             }
 
@@ -89,7 +83,8 @@ namespace TaptCharter
         {
             filePath = _filePath;
             string chartFilePath = filePath + @"\chart.taptchart";
-            try
+
+            try // Pulling data from file
             {
                 fileData = File.ReadAllLines(chartFilePath);
             } catch (Exception ex)
@@ -98,19 +93,17 @@ namespace TaptCharter
                 return;
             }
             
-
+            // Pulling basic data from file
             bpm = Int32.Parse(fileData[0]);
             length = Int32.Parse(fileData[1]);
             name = fileData[3];
-            //charterForm.Text = "Tapt Charter " + charterForm.Version + ": " + name;
             artist = fileData[4];
             album = fileData[5];
             charter = fileData[6];
+
+            // Loading song file
             try
             {
-                //loadedSong = SoundEffect.FromStream(new System.IO.FileStream(filePath + @"\song.wav", System.IO.FileMode.Open));
-                //Console.WriteLine("Loaded sound at " + filePath + @"\song.wav");
-
                 System.IO.FileStream fs = new System.IO.FileStream(filePath + @"\song.wav", System.IO.FileMode.Open);
                 loadedSong = SoundEffect.FromStream(fs);
                 Console.WriteLine("Loaded sound at " + filePath + @"\song.wav");
