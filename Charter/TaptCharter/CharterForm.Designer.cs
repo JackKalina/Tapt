@@ -28,24 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.chartVisualizer1 = new TaptCharter.ChartVisualizer();
+            this.chartVisualizer = new TaptCharter.ChartVisualizer();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // chartVisualizer1
+            // chartVisualizer
             // 
-            this.chartVisualizer1.Location = new System.Drawing.Point(12, 31);
-            this.chartVisualizer1.MouseHoverUpdatesOnly = false;
-            this.chartVisualizer1.Name = "chartVisualizer1";
-            this.chartVisualizer1.Size = new System.Drawing.Size(966, 676);
-            this.chartVisualizer1.TabIndex = 1;
-            this.chartVisualizer1.Text = "chartVisualizer1";
+            this.chartVisualizer.Location = new System.Drawing.Point(12, 31);
+            this.chartVisualizer.MouseHoverUpdatesOnly = false;
+            this.chartVisualizer.Name = "chartVisualizer";
+            this.chartVisualizer.Size = new System.Drawing.Size(966, 676);
+            this.chartVisualizer.TabIndex = 1;
+            this.chartVisualizer.Text = "chartVisualizer";
+            this.chartVisualizer.Click += new System.EventHandler(this.chartVisualizer_Click);
             // 
             // menuStrip1
             // 
@@ -63,8 +63,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newChartToolStripMenuItem,
             this.openChartToolStripMenuItem,
-            this.saveChartToolStripMenuItem,
-            this.exportChartToolStripMenuItem});
+            this.saveChartToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
@@ -88,18 +87,12 @@
             this.saveChartToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveChartToolStripMenuItem.Text = "Save Chart";
             // 
-            // exportChartToolStripMenuItem
-            // 
-            this.exportChartToolStripMenuItem.Name = "exportChartToolStripMenuItem";
-            this.exportChartToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.exportChartToolStripMenuItem.Text = "Export Chart";
-            // 
             // CharterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 719);
-            this.Controls.Add(this.chartVisualizer1);
+            this.Controls.Add(this.chartVisualizer);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "CharterForm";
@@ -114,13 +107,12 @@
 
         #endregion
 
-        private ChartVisualizer chartVisualizer1;
+        private ChartVisualizer chartVisualizer;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newChartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openChartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveChartToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportChartToolStripMenuItem;
     }
 }
 

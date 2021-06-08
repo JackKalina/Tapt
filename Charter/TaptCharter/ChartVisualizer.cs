@@ -9,6 +9,12 @@ namespace TaptCharter
 {
     class ChartVisualizer : MonoGame.Forms.Controls.MonoGameControl
     {
+        int bpm;
+        string name;
+        string artist;
+        string album;
+        string filePath;
+
         protected override void Draw()
         {
             base.Draw();
@@ -24,12 +30,8 @@ namespace TaptCharter
             base.Update(gameTime);
         }
 
-        void Create(int bpm)
-        {
 
-        }
-
-        void Load()
+        public void Load(string filePath)
         {
 
         }
