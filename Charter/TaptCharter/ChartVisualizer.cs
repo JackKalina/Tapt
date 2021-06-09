@@ -24,17 +24,20 @@ namespace TaptCharter
         private static string album;
         private static string filePath;
         private static string charter;
+        private static string infoString;
 
         private static SoundEffect loadedSong;
         private static SoundEffectInstance songInstance;
 
         private static string[] fileData; // This is where the initial data is read to. 
         private static string[] songInfo; // If there is a chart in the file, the initial information (name, artist, etc) is chopped off and put into another array.
-        private static string[] chartData; // This is where the rest of the fileData, the usable information, is stored. 
+        private static string[] loadedChartData; // This is where the rest of the fileData, the usable information, is stored. 
+        private static string[] newChartData; // This is where chart data is stored while editing.
 
         private KeyboardState previousState;
 
-        
+
+
         public ChartVisualizer()
         {
             filePath = "";
@@ -44,12 +47,28 @@ namespace TaptCharter
         protected override void Draw()
         {
             base.Draw();
+            Editor.spriteBatch.Begin();
+
+            if (name != null)
+            {
+                Editor.spriteBatch.DrawString(Editor.Font, infoString, new Vector2(20, 10), Color.White);
+            }
+
+            Editor.spriteBatch.End();
+
+            // This is debug information, fps and cursor position. Uncomment as needed.
+            //Editor.DrawDisplay();
+
         }
 
         protected override void Initialize()
         {
             base.Initialize();
+
+            Editor.BackgroundColor = Color.Black;
+
         }
+
 
         protected override void Update(GameTime gameTime)
         {
@@ -101,6 +120,8 @@ namespace TaptCharter
             album = fileData[5];
             charter = fileData[6];
 
+            infoString = "Name: " + name + " | Arist: " + artist + " | Album: " + album + " | Charter: " + charter;
+
             // Loading song file
             try
             {
@@ -118,11 +139,18 @@ namespace TaptCharter
             if (fileData.Length > 9)
             {
                 fileData.CopyTo(songInfo, 8);
-                Array.Copy(fileData, 9, chartData, 0, fileData.Length-9);
+                Array.Copy(fileData, 9, loadedChartData, 0, fileData.Length-9);
             } else
             {
                 return;
             }
+        }
+
+        private void Generate(int _bpm, int _length)
+        {
+            float bpmf = (float)_bpm;
+            int numRows = (bpm / 60) * _length * 4;
+            newChartData = new string[numRows];
         }
     }
 }
