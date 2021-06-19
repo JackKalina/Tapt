@@ -74,18 +74,11 @@ namespace TaptCharter
         {
             KeyboardState keyboardState = Keyboard.GetState();
 
+            // Handling sound playing
+            // If you press space the song starts playing. If you press space again it stops playing. And so forth.
             if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space) && songInstance.State == SoundState.Stopped)
             {
-                try
-                {
-                    songInstance = loadedSong.CreateInstance();
-                    songInstance.Play();
-                    
-                } catch (Exception ex)
-                {
-                    Console.WriteLine("Attempted to load file at " + filePath + @"\song.wav");
-                    Console.WriteLine("Error: " + ex.ToString());
-                }
+                songInstance.Play();
             } else if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space) && songInstance.State == SoundState.Playing)
             {
                 songInstance.Stop();
@@ -97,7 +90,10 @@ namespace TaptCharter
             previousState = keyboardState;
         }
 
-
+        /// <summary>
+        /// Loads in chart data to the visualizer
+        /// </summary>
+        /// <param name="_filePath">Path of the current song directory</param>
         public void LoadChart(string _filePath)
         {
             filePath = _filePath;
@@ -139,6 +135,7 @@ namespace TaptCharter
                 System.IO.FileStream fs = new System.IO.FileStream(filePath + @"\song.wav", System.IO.FileMode.Open);
                 loadedSong = SoundEffect.FromStream(fs);
                 Console.WriteLine("Loaded sound at " + filePath + @"\song.wav");
+                songInstance = loadedSong.CreateInstance();
                 fs.Dispose();
                 
             } catch (Exception ex)
@@ -155,6 +152,17 @@ namespace TaptCharter
             {
                 return;
             }
+            /*
+            try
+            {
+                songInstance = loadedSong.CreateInstance();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Attempted to load file at " + filePath + @"\song.wav");
+                Console.WriteLine("Error: " + ex.ToString());
+            }
+            */
         }
         /// <summary>
         /// Updates song info in the visualizer when it is edited
@@ -169,7 +177,11 @@ namespace TaptCharter
 
             infoString = "Name: " + name + " | Arist: " + artist + " | Album: " + album + " | Charter: " + charter;
         }
-
+        /// <summary>
+        /// Generates the QD data for the song. Needs work.
+        /// </summary>
+        /// <param name="_bpm">Song BPM</param>
+        /// <param name="_length">Song length</param>
         private void Generate(int _bpm, int _length)
         {
             float bpmf = (float)_bpm;

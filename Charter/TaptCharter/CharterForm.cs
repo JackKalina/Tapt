@@ -52,7 +52,16 @@ namespace TaptCharter
         {
 
         }
-
+        /// <summary>
+        /// Creates files for the chart and song info.
+        /// </summary>
+        /// <param name="_bpm">Song BPM (for chart file)</param>
+        /// <param name="_length">Song length (in s) (for chart file)</param>
+        /// <param name="_name">Song name (for song info file)</param>
+        /// <param name="_artist">Artist name (for song info file)</param>
+        /// <param name="_album">Album name (for song info file)</param>
+        /// <param name="_charter">Charter name(for song info file)</param>
+        /// <param name="_filePath">Path of the directory for the song</param>
         public void Create(string _bpm, string _length, string _name, string _artist, string _album, string _charter, string _filePath)
         {
             string[] chartInfo =
@@ -97,7 +106,13 @@ namespace TaptCharter
             saveChartToolStripMenuItem.Enabled = true;
             songInfoToolStripMenuItem.Enabled = true;
         }
-
+        /// <summary>
+        /// Used to update the song info file when edited in the edit form. 
+        /// </summary>
+        /// <param name="_name">Song name</param>
+        /// <param name="_artist">Artist name</param>
+        /// <param name="_album">Album name</param>
+        /// <param name="_charter">Charter name</param>
         public void UpdateSongInfo(string _name, string _artist, string _album, string _charter)
         {
             string songInfoPath = Path.Combine(filePath, "songinfo.txt");
