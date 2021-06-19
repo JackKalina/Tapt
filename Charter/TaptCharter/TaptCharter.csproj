@@ -92,6 +92,12 @@
     <Compile Include="ChartVisualizer.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="EditInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditInfoForm.Designer.cs">
+      <DependentUpon>EditInfoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewChartForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +108,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CharterForm.resx">
       <DependentUpon>CharterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditInfoForm.resx">
+      <DependentUpon>EditInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewChartForm.resx">
       <DependentUpon>NewChartForm.cs</DependentUpon>

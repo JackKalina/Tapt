@@ -15,6 +15,9 @@ namespace TaptCharter
     {
 
         string version = "v0.1";
+        static string[] songInfoSaved;
+        static string filePath;
+
         public string Version
         {
             get
@@ -49,6 +52,7 @@ namespace TaptCharter
         {
 
         }
+
         public void Create(string _bpm, string _length, string _name, string _artist, string _album, string _charter, string _filePath)
         {
             string[] chartInfo =
@@ -65,6 +69,8 @@ namespace TaptCharter
                 _album,
                 _charter
             };
+            filePath = _filePath;
+            songInfoSaved = songInfo;
 
             string chartFilePath = Path.Combine(_filePath, "chart.taptchart");
             string songInfoPath = Path.Combine(_filePath, "songinfo.txt");
@@ -89,6 +95,31 @@ namespace TaptCharter
             chartVisualizer.LoadChart(chartFilePath);
             this.Text = "Tapt Charter " + version + ": " + _name;
             saveChartToolStripMenuItem.Enabled = true;
+            songInfoToolStripMenuItem.Enabled = true;
+        }
+
+        public void UpdateSongInfo(string _name, string _artist, string _album, string _charter)
+        {
+            string songInfoPath = Path.Combine(filePath, "songinfo.txt");
+            Console.WriteLine(songInfoPath);
+
+            string[] songInfo =
+            {
+                _name,
+                _artist,
+                _album,
+                _charter
+            };
+
+            using (StreamWriter outputFile = new StreamWriter(songInfoPath))
+            {
+                foreach (string line in songInfo)
+                {
+                    outputFile.WriteLine(line);
+                }
+            }
+            songInfoSaved = songInfo;
+            chartVisualizer.UpdateInfo(songInfo);
         }
 
         private void openChartToolStripMenuItem_Click(object sender, EventArgs e)
@@ -96,13 +127,33 @@ namespace TaptCharter
             if (openChartDialog.ShowDialog() == DialogResult.OK)
             {
                 chartVisualizer.LoadChart(openChartDialog.SelectedPath);
+                filePath = openChartDialog.SelectedPath;
+                string songInfoPath = Path.Combine(openChartDialog.SelectedPath, "songinfo.txt");
+
+                try // Pulling data from file
+                {
+                    songInfoSaved = File.ReadAllLines(songInfoPath);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error reading file in Load function: " + ex.ToString());
+                    return;
+                }
+
                 saveChartToolStripMenuItem.Enabled = true;
+                songInfoToolStripMenuItem.Enabled = true;
             }
         }
 
         private void openChartDialog_FileOk(object sender, CancelEventArgs e)
         {
 
+        }
+
+        private void songInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditInfoForm editInfoForm = new EditInfoForm(songInfoSaved, this);
+            editInfoForm.Show();
         }
     }
 }

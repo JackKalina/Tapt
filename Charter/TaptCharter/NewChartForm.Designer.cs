@@ -50,49 +50,55 @@
             // 
             // bpmInput
             // 
-            this.bpmInput.Location = new System.Drawing.Point(95, 177);
+            this.bpmInput.Location = new System.Drawing.Point(71, 144);
+            this.bpmInput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.bpmInput.Name = "bpmInput";
-            this.bpmInput.Size = new System.Drawing.Size(166, 22);
+            this.bpmInput.Size = new System.Drawing.Size(126, 20);
             this.bpmInput.TabIndex = 0;
             // 
             // bpmLabel
             // 
             this.bpmLabel.AutoSize = true;
-            this.bpmLabel.Location = new System.Drawing.Point(12, 177);
+            this.bpmLabel.Location = new System.Drawing.Point(9, 144);
+            this.bpmLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.bpmLabel.Name = "bpmLabel";
-            this.bpmLabel.Size = new System.Drawing.Size(41, 17);
+            this.bpmLabel.Size = new System.Drawing.Size(33, 13);
             this.bpmLabel.TabIndex = 1;
             this.bpmLabel.Text = "BPM:";
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Location = new System.Drawing.Point(9, 54);
+            this.nameLabel.Location = new System.Drawing.Point(7, 44);
+            this.nameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(49, 17);
+            this.nameLabel.Size = new System.Drawing.Size(38, 13);
             this.nameLabel.TabIndex = 2;
             this.nameLabel.Text = "Name:";
             // 
             // nameInput
             // 
-            this.nameInput.Location = new System.Drawing.Point(95, 49);
+            this.nameInput.Location = new System.Drawing.Point(71, 40);
+            this.nameInput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.nameInput.Name = "nameInput";
-            this.nameInput.Size = new System.Drawing.Size(166, 22);
+            this.nameInput.Size = new System.Drawing.Size(126, 20);
             this.nameInput.TabIndex = 3;
             // 
             // artistInput
             // 
-            this.artistInput.Location = new System.Drawing.Point(95, 81);
+            this.artistInput.Location = new System.Drawing.Point(71, 66);
+            this.artistInput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.artistInput.Name = "artistInput";
-            this.artistInput.Size = new System.Drawing.Size(166, 22);
+            this.artistInput.Size = new System.Drawing.Size(126, 20);
             this.artistInput.TabIndex = 5;
             // 
             // artistLabel
             // 
             this.artistLabel.AutoSize = true;
-            this.artistLabel.Location = new System.Drawing.Point(9, 86);
+            this.artistLabel.Location = new System.Drawing.Point(7, 70);
+            this.artistLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.artistLabel.Name = "artistLabel";
-            this.artistLabel.Size = new System.Drawing.Size(44, 17);
+            this.artistLabel.Size = new System.Drawing.Size(33, 13);
             this.artistLabel.TabIndex = 6;
             this.artistLabel.Text = "Artist:";
             // 
@@ -100,26 +106,29 @@
             // 
             this.songInfoLabel.AutoSize = true;
             this.songInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songInfoLabel.Location = new System.Drawing.Point(29, 9);
+            this.songInfoLabel.Location = new System.Drawing.Point(22, 7);
+            this.songInfoLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.songInfoLabel.Name = "songInfoLabel";
-            this.songInfoLabel.Size = new System.Drawing.Size(202, 24);
+            this.songInfoLabel.Size = new System.Drawing.Size(160, 18);
             this.songInfoLabel.TabIndex = 7;
             this.songInfoLabel.Text = "Enter Song Information";
             // 
             // albumLabel
             // 
             this.albumLabel.AutoSize = true;
-            this.albumLabel.Location = new System.Drawing.Point(9, 118);
+            this.albumLabel.Location = new System.Drawing.Point(7, 96);
+            this.albumLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.albumLabel.Name = "albumLabel";
-            this.albumLabel.Size = new System.Drawing.Size(51, 17);
+            this.albumLabel.Size = new System.Drawing.Size(39, 13);
             this.albumLabel.TabIndex = 9;
             this.albumLabel.Text = "Album:";
             // 
             // albumInput
             // 
-            this.albumInput.Location = new System.Drawing.Point(95, 113);
+            this.albumInput.Location = new System.Drawing.Point(71, 92);
+            this.albumInput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.albumInput.Name = "albumInput";
-            this.albumInput.Size = new System.Drawing.Size(166, 22);
+            this.albumInput.Size = new System.Drawing.Size(126, 20);
             this.albumInput.TabIndex = 8;
             // 
             // openFileDialog
@@ -130,9 +139,10 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(148, 300);
+            this.okButton.Location = new System.Drawing.Point(109, 244);
+            this.okButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(113, 23);
+            this.okButton.Size = new System.Drawing.Size(85, 19);
             this.okButton.TabIndex = 11;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
@@ -140,9 +150,10 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(12, 299);
+            this.cancelButton.Location = new System.Drawing.Point(10, 244);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(112, 23);
+            this.cancelButton.Size = new System.Drawing.Size(84, 19);
             this.cancelButton.TabIndex = 12;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -150,9 +161,10 @@
             // 
             // openFileButton
             // 
-            this.openFileButton.Location = new System.Drawing.Point(13, 233);
+            this.openFileButton.Location = new System.Drawing.Point(10, 189);
+            this.openFileButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openFileButton.Name = "openFileButton";
-            this.openFileButton.Size = new System.Drawing.Size(248, 32);
+            this.openFileButton.Size = new System.Drawing.Size(186, 26);
             this.openFileButton.TabIndex = 13;
             this.openFileButton.Text = "Open wav file...";
             this.openFileButton.UseVisualStyleBackColor = true;
@@ -160,50 +172,55 @@
             // 
             // mp3FileNameTextBox
             // 
-            this.mp3FileNameTextBox.Location = new System.Drawing.Point(13, 271);
+            this.mp3FileNameTextBox.Location = new System.Drawing.Point(10, 220);
+            this.mp3FileNameTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.mp3FileNameTextBox.Name = "mp3FileNameTextBox";
             this.mp3FileNameTextBox.ReadOnly = true;
-            this.mp3FileNameTextBox.Size = new System.Drawing.Size(248, 22);
+            this.mp3FileNameTextBox.Size = new System.Drawing.Size(187, 20);
             this.mp3FileNameTextBox.TabIndex = 14;
             this.mp3FileNameTextBox.Text = "Please select a .wav file.";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 146);
+            this.label1.Location = new System.Drawing.Point(7, 119);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 17);
+            this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 16;
             this.label1.Text = "Charter:";
             // 
             // charterInput
             // 
-            this.charterInput.Location = new System.Drawing.Point(95, 146);
+            this.charterInput.Location = new System.Drawing.Point(71, 119);
+            this.charterInput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.charterInput.Name = "charterInput";
-            this.charterInput.Size = new System.Drawing.Size(166, 22);
+            this.charterInput.Size = new System.Drawing.Size(126, 20);
             this.charterInput.TabIndex = 15;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 205);
+            this.label2.Location = new System.Drawing.Point(9, 167);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 17);
+            this.label2.Size = new System.Drawing.Size(57, 13);
             this.label2.TabIndex = 18;
             this.label2.Text = "Length (s):";
             // 
             // lengthInput
             // 
-            this.lengthInput.Location = new System.Drawing.Point(95, 205);
+            this.lengthInput.Location = new System.Drawing.Point(71, 167);
+            this.lengthInput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lengthInput.Name = "lengthInput";
-            this.lengthInput.Size = new System.Drawing.Size(166, 22);
+            this.lengthInput.Size = new System.Drawing.Size(126, 20);
             this.lengthInput.TabIndex = 17;
             // 
             // NewChartForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(273, 335);
+            this.ClientSize = new System.Drawing.Size(205, 272);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lengthInput);
             this.Controls.Add(this.label1);
@@ -221,6 +238,7 @@
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.bpmLabel);
             this.Controls.Add(this.bpmInput);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "NewChartForm";
             this.Text = "New Chart";
             this.Load += new System.EventHandler(this.NewChartForm_Load);

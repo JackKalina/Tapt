@@ -102,6 +102,7 @@ namespace TaptCharter
         {
             filePath = _filePath;
             string chartFilePath = filePath + @"\chart.taptchart";
+            string infoFilePath = filePath + @"\songinfo.txt";
 
             try // Pulling data from file
             {
@@ -111,14 +112,24 @@ namespace TaptCharter
                 Console.WriteLine("Error reading file in Load function: " + ex.ToString());
                 return;
             }
-            
+
+            try // Pulling data from file
+            {
+                songInfo = File.ReadAllLines(infoFilePath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error reading file in Load function: " + ex.ToString());
+                return;
+            }
+
             // Pulling basic data from file
             bpm = Int32.Parse(fileData[0]);
             length = Int32.Parse(fileData[1]);
-            name = fileData[3];
-            artist = fileData[4];
-            album = fileData[5];
-            charter = fileData[6];
+            name = songInfo[0];
+            artist = songInfo[1];
+            album = songInfo[2];
+            charter = songInfo[3];
 
             infoString = "Name: " + name + " | Arist: " + artist + " | Album: " + album + " | Charter: " + charter;
 
@@ -144,6 +155,19 @@ namespace TaptCharter
             {
                 return;
             }
+        }
+        /// <summary>
+        /// Updates song info in the visualizer when it is edited
+        /// </summary>
+        /// <param name="songInfo">SongInfo string spit out by the Create function in CharterForm</param>
+        public void UpdateInfo(string[] songInfo)
+        {
+            name = songInfo[0];
+            artist = songInfo[1];
+            album = songInfo[2];
+            charter = songInfo[3];
+
+            infoString = "Name: " + name + " | Arist: " + artist + " | Album: " + album + " | Charter: " + charter;
         }
 
         private void Generate(int _bpm, int _length)
