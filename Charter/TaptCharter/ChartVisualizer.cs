@@ -98,7 +98,7 @@ namespace TaptCharter
         }
 
 
-        public void Load(string _filePath)
+        public void LoadChart(string _filePath)
         {
             filePath = _filePath;
             string chartFilePath = filePath + @"\chart.taptchart";

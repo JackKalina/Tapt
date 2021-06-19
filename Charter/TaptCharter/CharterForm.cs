@@ -51,30 +51,43 @@ namespace TaptCharter
         }
         public void Create(string _bpm, string _length, string _name, string _artist, string _album, string _charter, string _filePath)
         {
-            string[] basicInfo =
+            string[] chartInfo =
             {
                 _bpm,
                 _length,
-                "",
-                _name,
-                _artist,
-                _album,
-                _charter,
                 ""
             };
 
-            string filePath = Path.Combine(_filePath, "chart.taptchart");
-
-            using (StreamWriter outputFile = new StreamWriter(filePath))
+            string[] songInfo =
             {
-                foreach (string line in basicInfo)
+                _name,
+                _artist,
+                _album,
+                _charter
+            };
+
+            string chartFilePath = Path.Combine(_filePath, "chart.taptchart");
+            string songInfoPath = Path.Combine(_filePath, "songinfo.txt");
+
+
+            using (StreamWriter outputFile = new StreamWriter(chartFilePath))
+            {
+                foreach (string line in chartInfo)
                 {
                     outputFile.WriteLine(line);
                 }
             }
 
-            chartVisualizer.Load(filePath);
-            this.Text = "Tapt Charter" + version + ": " + _name;
+            using (StreamWriter outputFile = new StreamWriter(songInfoPath))
+            {
+                foreach (string line in songInfo)
+                {
+                    outputFile.WriteLine(line);
+                }
+            }
+
+            chartVisualizer.LoadChart(chartFilePath);
+            this.Text = "Tapt Charter " + version + ": " + _name;
             saveChartToolStripMenuItem.Enabled = true;
         }
 
@@ -82,7 +95,7 @@ namespace TaptCharter
         {
             if (openChartDialog.ShowDialog() == DialogResult.OK)
             {
-                chartVisualizer.Load(openChartDialog.SelectedPath);
+                chartVisualizer.LoadChart(openChartDialog.SelectedPath);
                 saveChartToolStripMenuItem.Enabled = true;
             }
         }
