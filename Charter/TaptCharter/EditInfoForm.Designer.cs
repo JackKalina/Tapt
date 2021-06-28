@@ -144,7 +144,7 @@ namespace TaptCharter
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(85, 19);
             this.okButton.TabIndex = 30;
-            this.okButton.Text = "OK";
+            this.okButton.Text = "Save";
             this.okButton.UseVisualStyleBackColor = true;
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 

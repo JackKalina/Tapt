@@ -33,9 +33,9 @@
             this.newChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openChartDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.songInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openChartDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.chartVisualizer1 = new TaptCharter.ChartVisualizer();
             this.chartVisualizer = new TaptCharter.ChartVisualizer();
             this.menuStrip1.SuspendLayout();
@@ -67,14 +67,14 @@
             // newChartToolStripMenuItem
             // 
             this.newChartToolStripMenuItem.Name = "newChartToolStripMenuItem";
-            this.newChartToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.newChartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newChartToolStripMenuItem.Text = "New Chart";
             this.newChartToolStripMenuItem.Click += new System.EventHandler(this.newChartToolStripMenuItem_Click);
             // 
             // openChartToolStripMenuItem
             // 
             this.openChartToolStripMenuItem.Name = "openChartToolStripMenuItem";
-            this.openChartToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.openChartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openChartToolStripMenuItem.Text = "Open Chart";
             this.openChartToolStripMenuItem.Click += new System.EventHandler(this.openChartToolStripMenuItem_Click);
             // 
@@ -82,8 +82,9 @@
             // 
             this.saveChartToolStripMenuItem.Enabled = false;
             this.saveChartToolStripMenuItem.Name = "saveChartToolStripMenuItem";
-            this.saveChartToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.saveChartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveChartToolStripMenuItem.Text = "Save Chart";
+            this.saveChartToolStripMenuItem.Click += new System.EventHandler(this.saveChartToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -97,7 +98,7 @@
             // 
             this.songInfoToolStripMenuItem.Enabled = false;
             this.songInfoToolStripMenuItem.Name = "songInfoToolStripMenuItem";
-            this.songInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.songInfoToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.songInfoToolStripMenuItem.Text = "Song Info";
             this.songInfoToolStripMenuItem.Click += new System.EventHandler(this.songInfoToolStripMenuItem_Click);
             // 
@@ -129,7 +130,7 @@
             this.Controls.Add(this.chartVisualizer);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CharterForm";
             this.Text = "Charter";
             this.Load += new System.EventHandler(this.Form1_Load);

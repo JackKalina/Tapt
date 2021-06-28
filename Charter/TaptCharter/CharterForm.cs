@@ -14,9 +14,11 @@ namespace TaptCharter
     public partial class CharterForm : Form
     {
 
-        string version = "v0.1";
-        static string[] songInfoSaved;
-        static string filePath;
+        private string version = "v0.1";
+        private static string[] songInfoSaved;
+        private static string filePath;
+        private static int bpm;
+        private static int length;
 
         public string Version
         {
@@ -68,8 +70,9 @@ namespace TaptCharter
             {
                 _bpm,
                 _length,
-                ""
             };
+            bpm = Int32.Parse(_bpm);
+            length = Int32.Parse(_length);
 
             string[] songInfo =
             {
@@ -90,6 +93,11 @@ namespace TaptCharter
                 foreach (string line in chartInfo)
                 {
                     outputFile.WriteLine(line);
+
+                }
+                for (int i = 0; i < ((Int32.Parse(_bpm) / 60) * Int32.Parse(_length) * 4) + 1; i++)
+                {
+                    outputFile.WriteLine("000000000");
                 }
             }
 
@@ -101,7 +109,7 @@ namespace TaptCharter
                 }
             }
 
-            chartVisualizer.LoadChart(chartFilePath);
+            chartVisualizer.LoadChart(filePath);
             this.Text = "Tapt Charter " + version + ": " + _name;
             saveChartToolStripMenuItem.Enabled = true;
             songInfoToolStripMenuItem.Enabled = true;
@@ -169,6 +177,12 @@ namespace TaptCharter
         {
             EditInfoForm editInfoForm = new EditInfoForm(songInfoSaved, this);
             editInfoForm.Show();
+        }
+
+        private void saveChartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string chartFilePath = Path.Combine(filePath, "chart.taptchart");
+            chartVisualizer.Save(chartFilePath, bpm, length);
         }
     }
 }

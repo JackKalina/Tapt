@@ -38,3 +38,6 @@ The number gives you how long you have to hit the sustain initially. The s tells
 you place an "e" in the QD that you want the sustain to end on. If you have a sustain there should not be any notes
 inside it (after the s and before the e). If you do that I don't like you and the game can't handle it (yet?).
 
+Sustains start with their own NoteType and are stored differently. All sustains end on the same type of note (a sustain end). 
+Full sustain starts are 5, half is 6, quarter is 7, three quarter is 8, and sustain end is 9.
+

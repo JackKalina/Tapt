@@ -104,6 +104,7 @@
     <Compile Include="NewChartForm.Designer.cs">
       <DependentUpon>NewChartForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Note.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CharterForm.resx">
