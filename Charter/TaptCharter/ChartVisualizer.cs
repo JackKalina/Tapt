@@ -54,13 +54,34 @@ namespace TaptCharter
 
         private Texture2D blankNoteTexture;
 
-        private KeyboardState previousState;
+        private KeyboardState keyboardState;
+        private KeyboardState previousKeyboard;
+        private MouseState mouseState;
+        private MouseState previousMouse;
 
+        private static int xOffset = 100; // This shouldn't change
+        private static int yOffset; // This will change
 
+        private static Texture2D textBackgroundRectangle;
+
+        private Color[] colorData;
 
         public ChartVisualizer()
         {
             filePath = "";
+
+            
+            colorData = new Color[724 * 50];
+
+            for (int i = 0; i < colorData.Length; i++)
+            {
+                colorData[i] = Color.Black;
+            }
+
+            
+            
+
+            yOffset = 100;
         }
         
         
@@ -69,26 +90,32 @@ namespace TaptCharter
             base.Draw();
             Editor.spriteBatch.Begin();
 
-            int xOffset = 100;
-            int yOffset = 50;
+            // This causes a massive memory issue. However it is necessary. Must fix.
+
+            //textBackgroundRectangle = new Texture2D(Editor.graphics, 724, 50);
+            //textBackgroundRectangle.SetData(colorData);
 
 
-            if (name != null)
-            {
-                Editor.spriteBatch.DrawString(Editor.Font, infoString, new Vector2(20, 10), Color.White);
-            }
             // Drawing the notes
             if (chartData != null)
             {
                 foreach (Note note in chartData)
                 {
-                    switch (note.NoteType)
+                    if (note.IsActive)
                     {
-                        case NoteType.None:
-                            Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(yOffset + note.Col * 32, xOffset + note.Row * 32), Color.White);
-                            break;
+                        switch (note.NoteType)
+                        {
+                            case NoteType.Quarter:
+                                Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(xOffset + note.Col * 32, yOffset + note.Row * 32), note.ActiveColor);
+                                break;
+                        }
+                    } else
+                    {
+                        Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(xOffset + note.Col * 32, yOffset + note.Row * 32), Color.White);
                     }
+                    
                 }
+                // Junk. Inefficent way to draw the notes but I'm leaving it in in case my efficient way doesn't actually work.
                 /*
                 for (int i = 0; i < chartData.Length / 9; i++)
                 {
@@ -104,10 +131,17 @@ namespace TaptCharter
                     }
                 }
                 */
+
+
+                //Editor.spriteBatch.Draw(textBackgroundRectangle, new Vector2(0, 0), Color.Black);
+                if (name != null)
+                {
+                    Editor.spriteBatch.DrawString(Editor.Font, infoString, new Vector2(20, 10), Color.White);
+                }
             }
 
-            
 
+            
             Editor.spriteBatch.End();
 
             // This is debug information, fps and cursor position. Uncomment as needed.
@@ -127,22 +161,50 @@ namespace TaptCharter
 
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState keyboardState = Keyboard.GetState();
+            keyboardState = Keyboard.GetState();
+            mouseState = Mouse.GetState();
 
-            // Handling sound playing
-            // If you press space the song starts playing. If you press space again it stops playing. And so forth.
-            if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space) && songInstance.State == SoundState.Stopped)
+            if (songInstance != null)
             {
-                songInstance.Play();
-            } else if (keyboardState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space) && songInstance.State == SoundState.Playing)
-            {
-                songInstance.Stop();
+                // Handling sound playing
+                // If you press space the song starts playing. If you press space again it stops playing. And so forth.
+                if (keyboardState.IsKeyDown(Keys.Space) && !previousKeyboard.IsKeyDown(Keys.Space) && songInstance.State == SoundState.Stopped)
+                {
+                    songInstance.Play();
+                    previousKeyboard = keyboardState;
+                    keyboardState = Keyboard.GetState();
+                } else if (keyboardState.IsKeyDown(Keys.Space) && !previousKeyboard.IsKeyDown(Keys.Space) && songInstance.State == SoundState.Playing)
+                {
+                    songInstance.Stop();
+                    yOffset = 100;
+                }
+
+                if (songInstance.State == SoundState.Playing)
+                {
+                    // Still working out the math on this. It is so close to being correct. SO close. 
+                    yOffset -= (int)(((float)bpm/60f * 4f * 32f / 1000f) * gameTime.ElapsedGameTime.TotalMilliseconds);
+                    
+                }
+                
             }
+            
 
+            if ((mouseState.ScrollWheelValue < previousMouse.ScrollWheelValue)) // 
+            {
+                yOffset-= 32;
+            }
+            else if ((mouseState.ScrollWheelValue > previousMouse.ScrollWheelValue) && yOffset < 100) //
+            {
+                yOffset+= 32;
+            }
+            //Console.WriteLine("ScrollWheelValue: " + mouseState.ScrollWheelValue);
+
+            //Console.WriteLine(yOffset);
 
             base.Update(gameTime);
 
-            previousState = keyboardState;
+            previousKeyboard = keyboardState;
+            previousMouse = mouseState;
         }
 
         /// <summary>
