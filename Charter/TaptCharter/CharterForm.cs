@@ -95,7 +95,7 @@ namespace TaptCharter
                     outputFile.WriteLine(line);
 
                 }
-                for (int i = 0; i < ((Int32.Parse(_bpm) / 60) * Int32.Parse(_length) * 4) + 1; i++)
+                for (int i = 0; i < (int)(((float)Int32.Parse(_bpm) / 60f) * (float)Int32.Parse(_length) * 4f) + 1; i++)
                 {
                     outputFile.WriteLine("000000000");
                 }

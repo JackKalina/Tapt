@@ -60,7 +60,7 @@ namespace TaptCharter
         private MouseState previousMouse;
 
         private static int xOffset = 100; // This shouldn't change
-        private static int yOffset; // This will change
+        private static float yOffset; // This will change
 
         private static Texture2D textBackgroundRectangle;
 
@@ -106,12 +106,14 @@ namespace TaptCharter
                         switch (note.NoteType)
                         {
                             case NoteType.Quarter:
-                                Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(xOffset + note.Col * 32, yOffset + note.Row * 32), note.ActiveColor);
+                                // switch blankNoteTexture to quarternotetexture when its made
+                                Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f), note.ActiveColor);
                                 break;
                         }
+                        
                     } else
                     {
-                        Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(xOffset + note.Col * 32, yOffset + note.Row * 32), Color.White);
+                        Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f), Color.White);
                     }
                     
                 }
@@ -181,19 +183,25 @@ namespace TaptCharter
 
                 if (songInstance.State == SoundState.Playing)
                 {
-                    // Still working out the math on this. It is so close to being correct. SO close. 
-                    yOffset -= (int)(((float)bpm/60f * 4f * 32f / 1000f) * gameTime.ElapsedGameTime.TotalMilliseconds);
-                    
+                    // The math was never broken... literally everything else was. Nice.
+                    // Discovered that everything needed to be casted to an float when calculating the number of rows.
+                    // Int division caused it to ALWAYS be short which is what caused the issue. 
+                    yOffset -= ((float)bpm/60f * 4f * 32f / 1000f) * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                    if (songInstance.State == SoundState.Stopped)
+                    {
+                        yOffset = 100;
+                    }
                 }
                 
             }
             
 
-            if ((mouseState.ScrollWheelValue < previousMouse.ScrollWheelValue)) // 
+            if ((mouseState.ScrollWheelValue < previousMouse.ScrollWheelValue)) // Stops you from scrolling down if the end of the chart is on the screen
+                // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ STILL NEEDS MATH ADDED! DO NOT FORGET
             {
                 yOffset-= 32;
             }
-            else if ((mouseState.ScrollWheelValue > previousMouse.ScrollWheelValue) && yOffset < 100) //
+            else if ((mouseState.ScrollWheelValue > previousMouse.ScrollWheelValue) && yOffset < 100) // Stops you from scrolling up if it's in default state/can't go lower
             {
                 yOffset+= 32;
             }
@@ -245,8 +253,9 @@ namespace TaptCharter
             album = songInfo[2];
             charter = songInfo[3];
 
-            int numRows = ((bpm / 60) * length * 4) + 1;
+            int numRows = (int)(((float)bpm / 60f) * (float)length * 4f) + 1;
             chartData = new Note[numRows, 9];
+            //Console.WriteLine("BPM: " + bpm + " LENGTH: " + length + " NUMROWS: " + numRows);
 
             infoString = "Name: " + name + " | Arist: " + artist + " | Album: " + album + " | Charter: " + charter;
 
@@ -314,7 +323,9 @@ namespace TaptCharter
         private void Generate(int _bpm, int _length)
         {
             //float bpmf = (float)_bpm; // I don't remember why i put this here, but I'm not deleting it in case it was important. I don't think it's ever used.
-            int numRows = ((_bpm / 60) * _length * 4) + 1;
+
+            int numRows = (int)(((float)bpm / 60f) * (float)length * 4f) + 1;
+            //Console.WriteLine("BPM: " + _bpm + " LENGTH: " + _length + " NUMROWS: " + numRows);
             chartData = new Note[numRows, 9];
             for (int i = 0; i < numRows; i++)
             {
