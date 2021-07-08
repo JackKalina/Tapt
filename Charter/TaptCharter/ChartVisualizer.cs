@@ -66,6 +66,13 @@ namespace TaptCharter
 
         private Color[] colorData;
 
+        private NoteType currentEditorState;
+        private int currentMouseX;
+        private int currentMouseY;
+        private int clickedCol;
+        private int clickedRow;
+
+
         public ChartVisualizer()
         {
             filePath = "";
@@ -205,9 +212,33 @@ namespace TaptCharter
             {
                 yOffset+= 32;
             }
+            // Uncomment these to track the scrollwheelvalue and y offset while troubleshooting
             //Console.WriteLine("ScrollWheelValue: " + mouseState.ScrollWheelValue);
 
-            //Console.WriteLine(yOffset);
+            //Console.WriteLine("yOffset: " + yOffset);
+
+            
+            // Left click detection hell.
+            if (mouseState.LeftButton == ButtonState.Pressed && previousMouse.LeftButton == ButtonState.Released)
+            {
+                currentMouseX = mouseState.X;
+                currentMouseY = mouseState.Y;
+
+                // Find which note its on top of, and change its state accordingly. Easier said than done. 
+                if (currentMouseX > 99 && currentMouseX < 389)
+                {
+                    // Detecting the column it is in. I'm pretty sure this can be done more easily.
+                    // I wrote that when I was only kinda sure the following equation would work. It does. 9 if/else statements went to heaven today.
+                    clickedCol = ((currentMouseX - 100) - ((currentMouseX - 100) % 32)) / 32;
+
+
+                } else // if it's not in this range, something is being clicked that isn't a note. Check through them here
+                {
+
+                }
+                
+               
+            }
 
             base.Update(gameTime);
 
