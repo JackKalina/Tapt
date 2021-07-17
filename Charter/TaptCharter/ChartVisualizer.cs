@@ -28,7 +28,17 @@ public enum NoteType
 }
 public enum EditorState
 {
-
+    PlaceFull,
+    PlaceHalf,
+    PlaceQuarter,
+    PlaceThreeQuarter,
+    PlaceFullSustain,
+    PlaceHalfSustain,
+    PlaceQuarterSustain,
+    PlaceThreeQuarterSustain,
+    PlaceSustainEnd,
+    Erase,
+    None
 }
 
 namespace TaptCharter
@@ -66,7 +76,7 @@ namespace TaptCharter
 
         private Color[] colorData;
 
-        private NoteType currentEditorState;
+        private EditorState currentEditorState;
         private int currentMouseX;
         private int currentMouseY;
         private int clickedCol;
@@ -85,10 +95,10 @@ namespace TaptCharter
                 colorData[i] = Color.Black;
             }
 
-            
+            currentEditorState = EditorState.None;
             
 
-            yOffset = 100;
+            yOffset = 128;
         }
         
         
@@ -185,7 +195,7 @@ namespace TaptCharter
                 } else if (keyboardState.IsKeyDown(Keys.Space) && !previousKeyboard.IsKeyDown(Keys.Space) && songInstance.State == SoundState.Playing)
                 {
                     songInstance.Stop();
-                    yOffset = 100;
+                    yOffset = 128;
                 }
 
                 if (songInstance.State == SoundState.Playing)
@@ -196,7 +206,7 @@ namespace TaptCharter
                     yOffset -= ((float)bpm/60f * 4f * 32f / 1000f) * (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                     if (songInstance.State == SoundState.Stopped)
                     {
-                        yOffset = 100;
+                        yOffset = 128;
                     }
                 }
                 
@@ -225,12 +235,21 @@ namespace TaptCharter
                 currentMouseY = mouseState.Y;
 
                 // Find which note its on top of, and change its state accordingly. Easier said than done. 
-                if (currentMouseX > 99 && currentMouseX < 389)
+                if (currentMouseX > 99 && currentMouseX < 389 && currentMouseY > 99)
                 {
+                    switch (currentEditorState)
+                    {
+                        case EditorState.PlaceQuarter:
+                            chartData[clickedCol, clickedRow].IsActive = true;
+                            chartData[clickedCol, clickedRow].NoteType = NoteType.Quarter;
+                            break;
+                    }
+                    // Encapsulate in a switch statement based on editor state.
                     // Detecting the column it is in. I'm pretty sure this can be done more easily.
                     // I wrote that when I was only kinda sure the following equation would work. It does. 9 if/else statements went to heaven today.
-                    clickedCol = ((currentMouseX - 100) - ((currentMouseX - 100) % 32)) / 32;
-
+                    clickedCol = ((currentMouseX - 128) - ((currentMouseX - 128) % 32)) / 32;
+                    clickedRow = ((currentMouseY - 128));
+                    
 
                 } else // if it's not in this range, something is being clicked that isn't a note. Check through them here
                 {
@@ -319,7 +338,7 @@ namespace TaptCharter
                 Generate(bpm, length);
             }
 
-            
+            currentEditorState = EditorState.PlaceQuarter;
 
             /*
             try
