@@ -24,7 +24,8 @@ public enum NoteType
     HalfSustainStart = 6,
     QuarterSustainStart = 7,
     ThreeQuarterSustainStart = 8,
-    SustainEnd = 9
+    SustainEnd = 9,
+    Covered = 10
 }
 public enum EditorState
 {
@@ -70,7 +71,10 @@ namespace TaptCharter
         private static Note[,] chartData; // This is where chart data is stored while editing.
 
         #region Texture loading
-        private Texture2D blankNoteTexture;
+        private Texture2D quarterNote;
+        private Texture2D halfNote;
+        private Texture2D threeQuarterNote;
+        private Texture2D fullNote;
         private Texture2D beatlineTexture;
         private Texture2D textBackground;
 
@@ -84,7 +88,7 @@ namespace TaptCharter
         private Texture2D fourButtonPressed;
         private Texture2D deleteButton;
         private Texture2D deleteButtonPressed;
-
+        /*
         private Texture2D redQuarter;
         private Texture2D redHalf;
         private Texture2D redThreeQuarter;
@@ -121,8 +125,9 @@ namespace TaptCharter
         private Texture2D magentaHalf;
         private Texture2D magentaThreeQuarter;
         private Texture2D magentaFull;
+        */
         #endregion
-
+        
         private KeyboardState keyboardState;
         private KeyboardState previousKeyboard;
         private MouseState mouseState;
@@ -141,7 +146,7 @@ namespace TaptCharter
         public ChartVisualizer()
         {
             filePath = "";
-            currentEditorState = EditorState.None;
+            currentEditorState = EditorState.PlaceQuarter;
             
 
             yOffset = 128;
@@ -156,11 +161,6 @@ namespace TaptCharter
             base.Draw();
             Editor.spriteBatch.Begin();
 
-            // This causes a massive memory issue. However it is necessary. Must fix.
-
-            //textBackgroundRectangle = new Texture2D(Editor.graphics, 724, 50);
-            //textBackgroundRectangle.SetData(colorData);
-
 
             // Drawing the notes
             if (chartData != null)
@@ -170,18 +170,37 @@ namespace TaptCharter
                     if (note.IsActive)
                     {
                         switch (note.NoteType)
-                        { // CHANGE THIS: SHOULD SWITCH BY NOTE TYPE, IN EACH CASE ANOTHER SWITCH BY COLUMN FOR COLOR? MAYBE? 
+                        {
                             case NoteType.Quarter:
-                                // switch blankNoteTexture to quarternotetexture when its made
                                 Editor.spriteBatch.DrawString(Editor.Font, note.Row.ToString(), new Vector2(10, yOffset + (float)note.Row * 32f), Color.Black);
-                                Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f), note.ActiveColor);
+                                Editor.spriteBatch.Draw(quarterNote, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f), note.ActiveColor);
                                 break;
+                            case NoteType.Half:
+                                Editor.spriteBatch.DrawString(Editor.Font, note.Row.ToString(), new Vector2(10, yOffset + (float)note.Row * 32f), Color.Black);
+                                Editor.spriteBatch.Draw(halfNote, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f), note.ActiveColor);
+                                break;
+                            case NoteType.ThreeQuarter:
+                                Editor.spriteBatch.DrawString(Editor.Font, note.Row.ToString(), new Vector2(10, yOffset + (float)note.Row * 32f), Color.Black);
+                                Editor.spriteBatch.Draw(threeQuarterNote, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f), note.ActiveColor);
+                                break;
+                            case NoteType.Full:
+                                Editor.spriteBatch.DrawString(Editor.Font, note.Row.ToString(), new Vector2(10, yOffset + (float)note.Row * 32f), Color.Black);
+                                Editor.spriteBatch.Draw(fullNote, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f), note.ActiveColor);
+                                break;
+
                         }
                         
                     } else
                     {
-                        Editor.spriteBatch.DrawString(Editor.Font, note.Row.ToString(), new Vector2(10, yOffset + 5 + (float)note.Row * 32f), Color.Black);
-                        Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f), Color.White);
+                        if (note.NoteType == NoteType.Covered)
+                        {
+                            continue;
+                        } else
+                        {
+                            Editor.spriteBatch.DrawString(Editor.Font, note.Row.ToString(), new Vector2(10, yOffset + 5 + (float)note.Row * 32f), Color.Black);
+                            Editor.spriteBatch.Draw(quarterNote, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f), Color.White);
+                        }
+                        
                     }
                     if (note.Row % 4 == 0)
                     {
@@ -219,8 +238,33 @@ namespace TaptCharter
                 
             }
 
+            Editor.spriteBatch.Draw(oneButton, new Vector2(660, 132), Color.White);
+            Editor.spriteBatch.Draw(twoButton, new Vector2(660, 196), Color.White);
+            Editor.spriteBatch.Draw(threeButton, new Vector2(660, 260), Color.White);
+            Editor.spriteBatch.Draw(fourButton, new Vector2(660, 324), Color.White);
+            Editor.spriteBatch.Draw(deleteButton, new Vector2(660, 388), Color.White);
 
-            
+            switch (currentEditorState)
+            {
+                case EditorState.PlaceQuarter:
+                    Editor.spriteBatch.Draw(oneButtonPressed, new Vector2(660, 132), Color.White);
+                    break;
+                case EditorState.PlaceHalf:
+                    Editor.spriteBatch.Draw(twoButtonPressed, new Vector2(660, 196), Color.White);
+                    break;
+                case EditorState.PlaceThreeQuarter:
+                    Editor.spriteBatch.Draw(threeButtonPressed, new Vector2(660, 260), Color.White);
+                    break;
+                case EditorState.PlaceFull:
+                    Editor.spriteBatch.Draw(fourButtonPressed, new Vector2(660, 324), Color.White);
+                    break;
+                case EditorState.Erase:
+                    Editor.spriteBatch.Draw(deleteButtonPressed, new Vector2(660, 388), Color.White);
+                    break;
+            }
+
+
+
             Editor.spriteBatch.End();
 
             // This is debug information, fps and cursor position. Uncomment as needed.
@@ -233,11 +277,15 @@ namespace TaptCharter
             base.Initialize();
 
             Editor.BackgroundColor = Color.White;
+
             #region Initializing textures
 
-            blankNoteTexture = Editor.Content.Load<Texture2D>("blanknote");
+            quarterNote = Editor.Content.Load<Texture2D>("blanknote");
             beatlineTexture = Editor.Content.Load<Texture2D>("beatline");
             textBackground = Editor.Content.Load<Texture2D>("textbackground");
+            halfNote = Editor.Content.Load<Texture2D>("blankhalf");
+            threeQuarterNote = Editor.Content.Load<Texture2D>("blankthreequarter");
+            fullNote = Editor.Content.Load<Texture2D>("blankfull");
 
             oneButton = Editor.Content.Load<Texture2D>("1button");
             oneButtonPressed = Editor.Content.Load<Texture2D>("1buttonpressed");
@@ -249,7 +297,7 @@ namespace TaptCharter
             fourButtonPressed = Editor.Content.Load<Texture2D>("4buttonpressed");
             deleteButton = Editor.Content.Load<Texture2D>("deletebutton");
             deleteButtonPressed = Editor.Content.Load<Texture2D>("deletebuttonpressed");
-
+            /*
             redQuarter = Editor.Content.Load<Texture2D>("redquarter");
             redHalf = Editor.Content.Load<Texture2D>("redhalf");
             redThreeQuarter = Editor.Content.Load<Texture2D>("redthreequarter");
@@ -286,7 +334,7 @@ namespace TaptCharter
             magentaHalf = Editor.Content.Load<Texture2D>("magentahalf");
             magentaThreeQuarter = Editor.Content.Load<Texture2D>("magentathreequarter");
             magentaFull = Editor.Content.Load<Texture2D>("magentafull");
-
+            */
             #endregion
         }
 
@@ -365,16 +413,74 @@ namespace TaptCharter
                             chartData[clickedRow, clickedCol].IsActive = true;
                             chartData[clickedRow, clickedCol].NoteType = NoteType.Quarter;
                             break;
+                        case EditorState.PlaceHalf:
+                            chartData[clickedRow, clickedCol].IsActive = true;
+                            chartData[clickedRow, clickedCol].NoteType = NoteType.Half;
+                            chartData[clickedRow + 1, clickedCol].NoteType = NoteType.Covered;
+                            break;
+                        case EditorState.PlaceThreeQuarter:
+                            chartData[clickedRow, clickedCol].IsActive = true;
+                            chartData[clickedRow, clickedCol].NoteType = NoteType.ThreeQuarter;
+                            chartData[clickedRow + 1, clickedCol].NoteType = NoteType.Covered;
+                            chartData[clickedRow + 2, clickedCol].NoteType = NoteType.Covered;
+                            break;
+                        case EditorState.PlaceFull:
+                            chartData[clickedRow, clickedCol].IsActive = true;
+                            chartData[clickedRow, clickedCol].NoteType = NoteType.Full;
+                            chartData[clickedRow + 1, clickedCol].NoteType = NoteType.Covered;
+                            chartData[clickedRow + 2, clickedCol].NoteType = NoteType.Covered;
+                            chartData[clickedRow + 3, clickedCol].NoteType = NoteType.Covered;
+                            break;
+                        case EditorState.Erase:
+                            chartData[clickedRow, clickedCol].IsActive = false;
+                            chartData[clickedRow, clickedCol].NoteType = NoteType.None;
+                            if (chartData[clickedRow, clickedCol].NoteType == NoteType.Half)
+                            {
+                                chartData[clickedRow + 1, clickedCol].NoteType = NoteType.None;
+                            } else if (chartData[clickedRow, clickedCol].NoteType == NoteType.ThreeQuarter)
+                            {
+                                chartData[clickedRow + 1, clickedCol].NoteType = NoteType.None;
+                                chartData[clickedRow + 2, clickedCol].NoteType = NoteType.None;
+                            } else if (chartData[clickedRow, clickedCol].NoteType == NoteType.Full)
+                            {
+                                chartData[clickedRow + 1, clickedCol].NoteType = NoteType.None;
+                                chartData[clickedRow + 2, clickedCol].NoteType = NoteType.None;
+                                chartData[clickedRow + 3, clickedCol].NoteType = NoteType.None;
+                            }
+                            
+                            
+                            break;
                     }
                     
                     
 
-                } else // if it's not in this range, something is being clicked that isn't a note. Check through them here
+                } else if (currentMouseX > 660) // buttons
                 {
-
+                    if (currentMouseY > 132 && currentMouseY < 196)
+                    {
+                        currentEditorState = EditorState.PlaceQuarter;
+                    } else if (currentMouseY > 196 && currentMouseY < 260)
+                    {
+                        currentEditorState = EditorState.PlaceHalf;
+                    } else if (currentMouseY > 260 && currentMouseY < 324)
+                    {
+                        currentEditorState = EditorState.PlaceThreeQuarter;
+                    } else if (currentMouseY > 324 && currentMouseY < 388)
+                    {
+                        currentEditorState = EditorState.PlaceFull;
+                    } else if (currentMouseY > 388 && currentMouseY < 452)
+                    {
+                        currentEditorState = EditorState.Erase;
+                    }
                 }
-                
-               
+                /*
+                new Vector2(660, 132), Color.White);
+                Editor.spriteBatch.Draw(twoButton, new Vector2(660, 196), Color.White);
+                Editor.spriteBatch.Draw(threeButton, new Vector2(660, 260), Color.White);
+                Editor.spriteBatch.Draw(fourButton, new Vector2(660, 324), Color.White);
+                Editor.spriteBatch.Draw(deleteButton, new Vector2(660, 388),
+                */
+
             }
 
             base.Update(gameTime);
