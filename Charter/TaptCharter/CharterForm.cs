@@ -184,5 +184,10 @@ namespace TaptCharter
             string chartFilePath = Path.Combine(filePath, "chart.taptchart");
             chartVisualizer.Save(chartFilePath, bpm, length);
         }
+
+        private void chartVisualizer1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

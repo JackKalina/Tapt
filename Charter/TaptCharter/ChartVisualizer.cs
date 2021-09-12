@@ -40,7 +40,14 @@ public enum EditorState
     Erase,
     None
 }
-
+public enum ButtonType
+{
+    OneButton,
+    TwoButton,
+    ThreeButton,
+    FourButton,
+    DeleteButton
+}
 namespace TaptCharter
 {
     class ChartVisualizer : MonoGame.Forms.Controls.MonoGameControl
@@ -62,7 +69,59 @@ namespace TaptCharter
         private static string[] loadedChartData; // This is where the rest of the fileData, the usable information, is stored. 
         private static Note[,] chartData; // This is where chart data is stored while editing.
 
+        #region Texture loading
         private Texture2D blankNoteTexture;
+        private Texture2D beatlineTexture;
+        private Texture2D textBackground;
+
+        private Texture2D oneButton;
+        private Texture2D oneButtonPressed;
+        private Texture2D twoButton;
+        private Texture2D twoButtonPressed;
+        private Texture2D threeButton;
+        private Texture2D threeButtonPressed;
+        private Texture2D fourButton;
+        private Texture2D fourButtonPressed;
+        private Texture2D deleteButton;
+        private Texture2D deleteButtonPressed;
+
+        private Texture2D redQuarter;
+        private Texture2D redHalf;
+        private Texture2D redThreeQuarter;
+        private Texture2D redFull;
+        private Texture2D orangeQuarter;
+        private Texture2D orangeHalf;
+        private Texture2D orangeThreeQuarter;
+        private Texture2D orangeFull;
+        private Texture2D yellowQuarter;
+        private Texture2D yellowHalf;
+        private Texture2D yellowThreeQuarter;
+        private Texture2D yellowFull;
+        private Texture2D limeQuarter;
+        private Texture2D limeHalf;
+        private Texture2D limeThreeQuarter;
+        private Texture2D limeFull;
+        private Texture2D greenQuarter;
+        private Texture2D greenHalf;
+        private Texture2D greenThreeQuarter;
+        private Texture2D greenFull;
+        private Texture2D cyanQuarter;
+        private Texture2D cyanHalf;
+        private Texture2D cyanThreeQuarter;
+        private Texture2D cyanFull;
+        private Texture2D blueQuarter;
+        private Texture2D blueHalf;
+        private Texture2D blueThreeQuarter;
+        private Texture2D blueFull;
+        private Texture2D purpleQuarter;
+        private Texture2D purpleHalf;
+        private Texture2D purpleThreeQuarter;
+        private Texture2D purpleFull;
+        private Texture2D magentaQuarter;
+        private Texture2D magentaHalf;
+        private Texture2D magentaThreeQuarter;
+        private Texture2D magentaFull;
+        #endregion
 
         private KeyboardState keyboardState;
         private KeyboardState previousKeyboard;
@@ -71,10 +130,6 @@ namespace TaptCharter
 
         private static int xOffset = 100; // This shouldn't change
         private static float yOffset; // This will change
-
-        private static Texture2D textBackgroundRectangle;
-
-        private Color[] colorData;
 
         private EditorState currentEditorState;
         private int currentMouseX;
@@ -86,22 +141,16 @@ namespace TaptCharter
         public ChartVisualizer()
         {
             filePath = "";
-
-            
-            colorData = new Color[724 * 50];
-
-            for (int i = 0; i < colorData.Length; i++)
-            {
-                colorData[i] = Color.Black;
-            }
-
             currentEditorState = EditorState.None;
             
 
             yOffset = 128;
+
+
+
         }
-        
-        
+
+
         protected override void Draw()
         {
             base.Draw();
@@ -121,20 +170,25 @@ namespace TaptCharter
                     if (note.IsActive)
                     {
                         switch (note.NoteType)
-                        {
+                        { // CHANGE THIS: SHOULD SWITCH BY NOTE TYPE, IN EACH CASE ANOTHER SWITCH BY COLUMN FOR COLOR? MAYBE? 
                             case NoteType.Quarter:
                                 // switch blankNoteTexture to quarternotetexture when its made
-                                Editor.spriteBatch.DrawString(Editor.Font, note.Row.ToString(), new Vector2(10, yOffset + (float)note.Row * 32f), Color.White);
+                                Editor.spriteBatch.DrawString(Editor.Font, note.Row.ToString(), new Vector2(10, yOffset + (float)note.Row * 32f), Color.Black);
                                 Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f), note.ActiveColor);
                                 break;
                         }
                         
                     } else
                     {
-                        Editor.spriteBatch.DrawString(Editor.Font, note.Row.ToString(), new Vector2(10, yOffset + 5 + (float)note.Row * 32f), Color.White);
+                        Editor.spriteBatch.DrawString(Editor.Font, note.Row.ToString(), new Vector2(10, yOffset + 5 + (float)note.Row * 32f), Color.Black);
                         Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f), Color.White);
                     }
-                    
+                    if (note.Row % 4 == 0)
+                    {
+                        Editor.spriteBatch.Draw(beatlineTexture, new Vector2(xOffset + note.Col * 32, yOffset + (float)note.Row * 32f - 1), Color.White);
+
+                    }
+
                 }
                 // Junk. Inefficent way to draw the notes but I'm leaving it in in case my efficient way doesn't actually work.
                 /*
@@ -153,12 +207,16 @@ namespace TaptCharter
                 }
                 */
 
+                // White space so that notes disappear earlier
+                Editor.spriteBatch.Draw(textBackground, new Vector2(0, 0), Color.White);
 
                 //Editor.spriteBatch.Draw(textBackgroundRectangle, new Vector2(0, 0), Color.Black);
                 if (name != null)
                 {
-                    Editor.spriteBatch.DrawString(Editor.Font, infoString, new Vector2(20, 10), Color.White);
+                    Editor.spriteBatch.DrawString(Editor.Font, infoString, new Vector2(20, 10), Color.Black, 0f, new Vector2(0,0), 1.5f, SpriteEffects.None, 0f);
                 }
+
+                
             }
 
 
@@ -174,9 +232,62 @@ namespace TaptCharter
         {
             base.Initialize();
 
-            Editor.BackgroundColor = Color.Black;
-            blankNoteTexture = Editor.Content.Load<Texture2D>("blanknote");
+            Editor.BackgroundColor = Color.White;
+            #region Initializing textures
 
+            blankNoteTexture = Editor.Content.Load<Texture2D>("blanknote");
+            beatlineTexture = Editor.Content.Load<Texture2D>("beatline");
+            textBackground = Editor.Content.Load<Texture2D>("textbackground");
+
+            oneButton = Editor.Content.Load<Texture2D>("1button");
+            oneButtonPressed = Editor.Content.Load<Texture2D>("1buttonpressed");
+            twoButton = Editor.Content.Load<Texture2D>("2button");
+            twoButtonPressed = Editor.Content.Load<Texture2D>("2buttonpressed");
+            threeButton = Editor.Content.Load<Texture2D>("3button");
+            threeButtonPressed = Editor.Content.Load<Texture2D>("3buttonpressed");
+            fourButton = Editor.Content.Load<Texture2D>("4button");
+            fourButtonPressed = Editor.Content.Load<Texture2D>("4buttonpressed");
+            deleteButton = Editor.Content.Load<Texture2D>("deletebutton");
+            deleteButtonPressed = Editor.Content.Load<Texture2D>("deletebuttonpressed");
+
+            redQuarter = Editor.Content.Load<Texture2D>("redquarter");
+            redHalf = Editor.Content.Load<Texture2D>("redhalf");
+            redThreeQuarter = Editor.Content.Load<Texture2D>("redthreequarter");
+            redFull = Editor.Content.Load<Texture2D>("redfull");
+            orangeQuarter = Editor.Content.Load<Texture2D>("orangequarter");
+            orangeHalf = Editor.Content.Load<Texture2D>("orangehalf");
+            orangeThreeQuarter = Editor.Content.Load<Texture2D>("orangethreequarter");
+            orangeFull = Editor.Content.Load<Texture2D>("orangefull");
+            yellowQuarter = Editor.Content.Load<Texture2D>("yellowquarter");
+            yellowHalf = Editor.Content.Load<Texture2D>("yellowhalf");
+            yellowThreeQuarter = Editor.Content.Load<Texture2D>("yellowthreequarter");
+            yellowFull = Editor.Content.Load<Texture2D>("yellowfull");
+            limeQuarter = Editor.Content.Load<Texture2D>("limequarter");
+            limeHalf = Editor.Content.Load<Texture2D>("limehalf");
+            limeThreeQuarter = Editor.Content.Load<Texture2D>("limethreequarter");
+            limeFull = Editor.Content.Load<Texture2D>("limefull");
+            greenQuarter = Editor.Content.Load<Texture2D>("greenquarter");
+            greenHalf = Editor.Content.Load<Texture2D>("greenhalf");
+            greenThreeQuarter = Editor.Content.Load<Texture2D>("greenthreequarter");
+            greenFull = Editor.Content.Load<Texture2D>("greenfull");
+            cyanQuarter = Editor.Content.Load<Texture2D>("cyanquarter");
+            cyanHalf = Editor.Content.Load<Texture2D>("cyanhalf");
+            cyanThreeQuarter = Editor.Content.Load<Texture2D>("cyanthreequarter");
+            cyanFull = Editor.Content.Load<Texture2D>("cyanfull");
+            blueQuarter = Editor.Content.Load<Texture2D>("bluequarter");
+            blueHalf = Editor.Content.Load<Texture2D>("bluehalf");
+            blueThreeQuarter = Editor.Content.Load<Texture2D>("bluethreequarter");
+            blueFull = Editor.Content.Load<Texture2D>("bluefull");
+            purpleQuarter = Editor.Content.Load<Texture2D>("purplequarter");
+            purpleHalf = Editor.Content.Load<Texture2D>("purplehalf");
+            purpleThreeQuarter = Editor.Content.Load<Texture2D>("purplethreequarter");
+            purpleFull = Editor.Content.Load<Texture2D>("purplefull");
+            magentaQuarter = Editor.Content.Load<Texture2D>("magentaquarter");
+            magentaHalf = Editor.Content.Load<Texture2D>("magentahalf");
+            magentaThreeQuarter = Editor.Content.Load<Texture2D>("magentathreequarter");
+            magentaFull = Editor.Content.Load<Texture2D>("magentafull");
+
+            #endregion
         }
 
 
@@ -314,7 +425,7 @@ namespace TaptCharter
             chartData = new Note[numRows, 9];
             //Console.WriteLine("BPM: " + bpm + " LENGTH: " + length + " NUMROWS: " + numRows);
 
-            infoString = "Name: " + name + " | Arist: " + artist + " | Album: " + album + " | Charter: " + charter;
+            infoString = "Name: " + name + " | Artist: " + artist + " | Album: " + album + " \nCharter: " + charter + " | BPM: " + bpm + " | Length (s): " + length;
 
             // Loading song file
             try
@@ -329,7 +440,7 @@ namespace TaptCharter
             catch (Exception ex)
             {
                 Console.WriteLine("Error loading wav file: " + ex.ToString());
-                return;
+                //return;
             }
 
 
@@ -339,6 +450,7 @@ namespace TaptCharter
                 loadedChartData = new string[fileChartData.Length - 2];
                 Array.Copy(fileChartData, 2, loadedChartData, 0, fileChartData.Length - 2);
                 ConvertStringToNotes(loadedChartData);
+                
             }
             else
             {
@@ -370,7 +482,7 @@ namespace TaptCharter
             album = songInfo[2];
             charter = songInfo[3];
 
-            infoString = "Name: " + name + " | Arist: " + artist + " | Album: " + album + " | Charter: " + charter;
+            infoString = "Name: " + name + " | Artist: " + artist + " | Album: " + album + " \nCharter: " + charter + " | BPM: " + bpm + " | Length (s): " + length;
         }
         /// <summary>
         /// Generates the QD data for the song. Needs work.

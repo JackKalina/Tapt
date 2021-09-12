@@ -67,14 +67,14 @@
             // newChartToolStripMenuItem
             // 
             this.newChartToolStripMenuItem.Name = "newChartToolStripMenuItem";
-            this.newChartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newChartToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.newChartToolStripMenuItem.Text = "New Chart";
             this.newChartToolStripMenuItem.Click += new System.EventHandler(this.newChartToolStripMenuItem_Click);
             // 
             // openChartToolStripMenuItem
             // 
             this.openChartToolStripMenuItem.Name = "openChartToolStripMenuItem";
-            this.openChartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openChartToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.openChartToolStripMenuItem.Text = "Open Chart";
             this.openChartToolStripMenuItem.Click += new System.EventHandler(this.openChartToolStripMenuItem_Click);
             // 
@@ -82,7 +82,7 @@
             // 
             this.saveChartToolStripMenuItem.Enabled = false;
             this.saveChartToolStripMenuItem.Name = "saveChartToolStripMenuItem";
-            this.saveChartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveChartToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.saveChartToolStripMenuItem.Text = "Save Chart";
             this.saveChartToolStripMenuItem.Click += new System.EventHandler(this.saveChartToolStripMenuItem_Click);
             // 
@@ -104,6 +104,7 @@
             // 
             // chartVisualizer1
             // 
+            this.chartVisualizer1.BackColor = System.Drawing.Color.White;
             this.chartVisualizer1.Location = new System.Drawing.Point(9, 25);
             this.chartVisualizer1.Margin = new System.Windows.Forms.Padding(2);
             this.chartVisualizer1.MouseHoverUpdatesOnly = false;
@@ -111,6 +112,7 @@
             this.chartVisualizer1.Size = new System.Drawing.Size(724, 549);
             this.chartVisualizer1.TabIndex = 6;
             this.chartVisualizer1.Text = "chartVisualizer1";
+            this.chartVisualizer1.Click += new System.EventHandler(this.chartVisualizer1_Click);
             // 
             // chartVisualizer
             // 
