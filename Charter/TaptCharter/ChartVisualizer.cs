@@ -88,44 +88,7 @@ namespace TaptCharter
         private Texture2D fourButtonPressed;
         private Texture2D deleteButton;
         private Texture2D deleteButtonPressed;
-        /*
-        private Texture2D redQuarter;
-        private Texture2D redHalf;
-        private Texture2D redThreeQuarter;
-        private Texture2D redFull;
-        private Texture2D orangeQuarter;
-        private Texture2D orangeHalf;
-        private Texture2D orangeThreeQuarter;
-        private Texture2D orangeFull;
-        private Texture2D yellowQuarter;
-        private Texture2D yellowHalf;
-        private Texture2D yellowThreeQuarter;
-        private Texture2D yellowFull;
-        private Texture2D limeQuarter;
-        private Texture2D limeHalf;
-        private Texture2D limeThreeQuarter;
-        private Texture2D limeFull;
-        private Texture2D greenQuarter;
-        private Texture2D greenHalf;
-        private Texture2D greenThreeQuarter;
-        private Texture2D greenFull;
-        private Texture2D cyanQuarter;
-        private Texture2D cyanHalf;
-        private Texture2D cyanThreeQuarter;
-        private Texture2D cyanFull;
-        private Texture2D blueQuarter;
-        private Texture2D blueHalf;
-        private Texture2D blueThreeQuarter;
-        private Texture2D blueFull;
-        private Texture2D purpleQuarter;
-        private Texture2D purpleHalf;
-        private Texture2D purpleThreeQuarter;
-        private Texture2D purpleFull;
-        private Texture2D magentaQuarter;
-        private Texture2D magentaHalf;
-        private Texture2D magentaThreeQuarter;
-        private Texture2D magentaFull;
-        */
+        
         #endregion
         
         private KeyboardState keyboardState;
@@ -209,22 +172,6 @@ namespace TaptCharter
                     }
 
                 }
-                // Junk. Inefficent way to draw the notes but I'm leaving it in in case my efficient way doesn't actually work.
-                /*
-                for (int i = 0; i < chartData.Length / 9; i++)
-                {
-                    for (int j = 0; j < 9; j++)
-                    {
-                        switch (chartData[i, j].NoteType)
-                        {
-                            case NoteType.None:
-                                Editor.spriteBatch.Draw(blankNoteTexture, new Vector2(yOffset + j * 32, xOffset + i * 32), Color.White);
-                                break;
-                        }
-
-                    }
-                }
-                */
 
                 // White space so that notes disappear earlier
                 Editor.spriteBatch.Draw(textBackground, new Vector2(0, 0), Color.White);
@@ -297,44 +244,7 @@ namespace TaptCharter
             fourButtonPressed = Editor.Content.Load<Texture2D>("4buttonpressed");
             deleteButton = Editor.Content.Load<Texture2D>("deletebutton");
             deleteButtonPressed = Editor.Content.Load<Texture2D>("deletebuttonpressed");
-            /*
-            redQuarter = Editor.Content.Load<Texture2D>("redquarter");
-            redHalf = Editor.Content.Load<Texture2D>("redhalf");
-            redThreeQuarter = Editor.Content.Load<Texture2D>("redthreequarter");
-            redFull = Editor.Content.Load<Texture2D>("redfull");
-            orangeQuarter = Editor.Content.Load<Texture2D>("orangequarter");
-            orangeHalf = Editor.Content.Load<Texture2D>("orangehalf");
-            orangeThreeQuarter = Editor.Content.Load<Texture2D>("orangethreequarter");
-            orangeFull = Editor.Content.Load<Texture2D>("orangefull");
-            yellowQuarter = Editor.Content.Load<Texture2D>("yellowquarter");
-            yellowHalf = Editor.Content.Load<Texture2D>("yellowhalf");
-            yellowThreeQuarter = Editor.Content.Load<Texture2D>("yellowthreequarter");
-            yellowFull = Editor.Content.Load<Texture2D>("yellowfull");
-            limeQuarter = Editor.Content.Load<Texture2D>("limequarter");
-            limeHalf = Editor.Content.Load<Texture2D>("limehalf");
-            limeThreeQuarter = Editor.Content.Load<Texture2D>("limethreequarter");
-            limeFull = Editor.Content.Load<Texture2D>("limefull");
-            greenQuarter = Editor.Content.Load<Texture2D>("greenquarter");
-            greenHalf = Editor.Content.Load<Texture2D>("greenhalf");
-            greenThreeQuarter = Editor.Content.Load<Texture2D>("greenthreequarter");
-            greenFull = Editor.Content.Load<Texture2D>("greenfull");
-            cyanQuarter = Editor.Content.Load<Texture2D>("cyanquarter");
-            cyanHalf = Editor.Content.Load<Texture2D>("cyanhalf");
-            cyanThreeQuarter = Editor.Content.Load<Texture2D>("cyanthreequarter");
-            cyanFull = Editor.Content.Load<Texture2D>("cyanfull");
-            blueQuarter = Editor.Content.Load<Texture2D>("bluequarter");
-            blueHalf = Editor.Content.Load<Texture2D>("bluehalf");
-            blueThreeQuarter = Editor.Content.Load<Texture2D>("bluethreequarter");
-            blueFull = Editor.Content.Load<Texture2D>("bluefull");
-            purpleQuarter = Editor.Content.Load<Texture2D>("purplequarter");
-            purpleHalf = Editor.Content.Load<Texture2D>("purplehalf");
-            purpleThreeQuarter = Editor.Content.Load<Texture2D>("purplethreequarter");
-            purpleFull = Editor.Content.Load<Texture2D>("purplefull");
-            magentaQuarter = Editor.Content.Load<Texture2D>("magentaquarter");
-            magentaHalf = Editor.Content.Load<Texture2D>("magentahalf");
-            magentaThreeQuarter = Editor.Content.Load<Texture2D>("magentathreequarter");
-            magentaFull = Editor.Content.Load<Texture2D>("magentafull");
-            */
+            
             #endregion
         }
 
@@ -383,6 +293,8 @@ namespace TaptCharter
             {
                 yOffset+= 32;
             }
+
+            
             // Uncomment these to track the scrollwheelvalue and y offset while troubleshooting
             //Console.WriteLine("ScrollWheelValue: " + mouseState.ScrollWheelValue);
 
@@ -611,15 +523,15 @@ namespace TaptCharter
             Save(filePath, _bpm, _length);
         }
 
-        public void Save(string _filePath, int bpm, int length)
+        public void Save(string _filePath, int _bpm, int _length)
         {
             string chartFilePath = filePath + @"\chart.taptchart";
 
 
             using (StreamWriter outputFile = new StreamWriter(chartFilePath, false))
             {
-                outputFile.WriteLine(bpm);
-                outputFile.WriteLine(length);
+                outputFile.WriteLine(_bpm);
+                outputFile.WriteLine(_length);
                 for (int i = 0; i < chartData.Length/9; i++)
                 {
                     for (int j = 0; i < 10; i++)
